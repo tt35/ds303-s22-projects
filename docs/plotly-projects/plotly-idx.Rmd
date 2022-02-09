@@ -1,0 +1,80 @@
+---
+title: "plotly Projects"
+author: "Data 303"
+date: "Spring 2022"
+output: html_document
+
+knit: (
+  function(inputFile, encoding) { 
+    rmarkdown::render( 
+      input       = inputFile, 
+      encoding    = encoding, 
+      output_file = 'index.html') })
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The projects
+
+```{r echo = FALSE, results = "asis"}
+projects <- dir(pattern = "index.Rmd", recursive = TRUE)
+for (p in projects) {
+  yaml <- rmarkdown::yaml_front_matter(p)
+  glue::glue("* [{title}]({path}) by {name}", 
+             path = dirname(p), 
+             title = yaml[["title"]],
+             name = yaml[["author"]]
+  ) |> cat()
+}
+
+```
+
+## Instructions
+
+Your task is to create a visualization using plotly in R. 
+
+1. The data you use for this project may not come from an R package, unless it is one that you created.
+Otherwise, you may use any data you like. More interesting data makes for more interesting projects.
+
+2. Prepare an Rmd file that produces an `index.html` file. 
+
+    a. The name of your file must end `index.Rmd` 
+    
+        Take a look at John Calvin's example if you want to 
+    name your Rmd something other than `index.Rmd`.
+    
+    b. The YAML header must include the following items: `title`, `author`
+        
+
+3. Prepare an HTML file named **index.html** (generated from your Rmd file).
+
+    The file should contain:
+    
+    a. Your visualization(s).
+    b. Any background information needed to understand the data or the visualization.
+    c. A description of the data source with links if the data are available online.
+    d. Any other references/citations as needed.
+    
+
+4. Your visualization(s) should include at least one interactive element.
+
+5. Also submit your source files. 
+
+    a. You don't need to submit the data if it is available online. (But then your project should also
+    load from that online source.)
+    
+    b. Your project should be buildable by someone who has access to the files you submit. It should not
+    rely on other information -- like files on your computer that are not submitted. 
+    [Exception: if there is some reason that you cannot share your data, or 
+    if your data is larger than 10 MB, talk to me.]
+
+6. Submit your work via a pull request.
+
+    a. Fork this repo: <https://github.com/rpruim/ds303-s22-projects>
+    b. Inside `docs/plotly-projects/` create a folder using the naming convention `first-last` (all lower case, no spaces, use a dash for a separator).
+    c. Place all your files in this folder.
+    d. When you are ready to submit your work, create a pull request. You can find out more about 
+    pull requests [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
+    

@@ -3,6 +3,12 @@ title: "Here's Johnny"
 author: "Data 303 535"
 date: "2/8/2022"
 output: html_document
+knit: (
+  function(inputFile, encoding) { 
+    rmarkdown::render( 
+      input       = inputFile, 
+      encoding    = encoding, 
+      output_file = 'index.html') })
 ---
 
 ```{r setup, include=FALSE}

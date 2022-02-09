@@ -1,0 +1,31 @@
+---
+title: "DS 303 Projects"
+author: "Data 303"
+date: "Spring 2022"
+output: html_document
+
+knit: (
+  function(inputFile, encoding) { 
+    rmarkdown::render( 
+      input       = inputFile, 
+      encoding    = encoding, 
+      output_file = 'index.html') })
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## plotly projects
+
+```{r echo = FALSE, results = "asis"}
+projects <- list.dirs(full.names = FALSE)
+projects <- projects[nchar(projects) > 1] |> sort()
+for (p in projects) {
+  glue::glue("* [{name}]({path})", 
+             path = p, 
+             name = tools::toTitleCase(p)) |>  stringr::str_replace_all('-', ' ')  |> 
+    cat()
+}
+
+```

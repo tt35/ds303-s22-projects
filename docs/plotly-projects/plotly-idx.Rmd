@@ -35,46 +35,97 @@ for (p in projects) {
 
 Your task is to create a visualization using plotly in R. 
 
-1. The data you use for this project may not come from an R package, unless it is one that you created.
+#### 1. Get Prepared
+
+a. Choose some data
+
+    The data you use for this project may not come from an R package, unless it is one that you created.
 Otherwise, you may use any data you like. More interesting data makes for more interesting projects.
 
-2. Prepare an Rmd file that produces an `index.html` file. 
+b. Read some of [Claus Wilke's visualization book](https://clauswilke.com/dataviz/):
 
-    a. The name of your file must end `index.Rmd` 
+    * From chapters 6 - 16: Read the chapters related to the types of plot(s) you are making.
+    * [Chapter 10: Visualizing Proportions](https://clauswilke.com/dataviz/visualizing-proportions.html)
+    * At least one chapter from part II -- choose something relevant to your project or interesting to you.
+    * [Chapter 29: Telling a Story and Making a Point](https://clauswilke.com/dataviz/telling-a-story.html)
+
+#### 2. Fork the projects repo 
+
+a. Fork this repo: <https://github.com/rpruim/ds303-s22-projects>
+b. Inside `docs/plotly-projects/` create a folder using the naming convention `first-last` (all lower case, no spaces, use a dash for a separator).
+c. Place all your files for this project in this folder.
+
+#### 3. Prepare an Rmd file that produces an `index.html` file. 
+
+a. The name of your file must end `index.Rmd` 
     
-        Take a look at John Calvin's example if you want to 
+    Take a look at John Calvin's example if you want to 
     name your Rmd something other than `index.Rmd`.
     
-    b. The YAML header must include the following items: `title`, `author`
+b. The YAML header must include the following items: `title`, `author`
         
 
-3. Prepare an HTML file named **index.html** (generated from your Rmd file).
+#### 4. Prepare an HTML file named **index.html** (generated from your Rmd file).
 
-    The file should contain:
+The file should contain:
     
-    a. Your visualization(s).
-    b. Any background information needed to understand the data or the visualization.
-    c. A description of the data source with links if the data are available online.
-    d. Any other references/citations as needed.
+a. Your visualization(s). Your visualization(s) should include at least one interactive element
+    and follow good practices for the display of data.
+b. Any background information needed to understand the data or the visualization.
+c. A description of the data source with links if the data are available online. (This would include 
+a link to data in this repository if that where the data live.)
+d. Any other references/citations as needed.
+e. A section reflecting on your project.
+    * What ideas/suggestions from Claus Wilke's helped shape your visualization?
+    * Is there anything more you wish you could do with this data?
+    * What were the most interesting or frustrating technical aspects of doing this?
     
+    
+#### 5. Test things out
 
-4. Your visualization(s) should include at least one interactive element.
+If you [turn on github pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site) for the docs/ folder of your repo, you should be able to 
+visit your page via a `github.io` URL.
 
-5. Also submit your source files. 
+#### 6. Also submit your source files. 
 
-    a. You don't need to submit the data if it is available online. (But then your project should also
+a. You don't need to submit the data if it is available online. (But then your project should also
     load from that online source.)
     
-    b. Your project should be buildable by someone who has access to the files you submit. It should not
+b. Your project should be buildable by someone who has access to the files you submit. It should not
     rely on other information -- like files on your computer that are not submitted. 
     [Exception: if there is some reason that you cannot share your data, or 
-    if your data is larger than 10 MB, talk to me.]
+    if your data is larger than 5 MB, talk to me.]
 
-6. Submit your work via a pull request.
+#### 7. Submit your work via a pull request.
 
-    a. Fork this repo: <https://github.com/rpruim/ds303-s22-projects>
-    b. Inside `docs/plotly-projects/` create a folder using the naming convention `first-last` (all lower case, no spaces, use a dash for a separator).
-    c. Place all your files in this folder.
-    d. When you are ready to submit your work, create a pull request. You can find out more about 
-    pull requests [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
-    
+a. When you are ready to submit your work, create a pull request. You can find out more about 
+    pull requests [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork).
+b. Once your pull request has been accepted, your files should be availble at
+<https://rpruim.github.io/ds303-s22-projects/plotly-projects/>.
+
+#### 8. Prepare to present a walk-through of your visualization
+
+Everyone will get a chance to do a "show-and-tell" about their visualization. 
+
+* Your data should tell a story, so use your time to tell the story.
+
+* Make at least one connection between the design of your visualization(s) and the things you
+read in Claus Wilke's book.
+
+* You may also talk about some of the technical aspects of creating your visualization (obtaining data,
+cool features of plotly, data wrangling issues you had, things you wish you could improve but don't know
+how to do yet, etc.)
+
+
+### Timeline
+
+* Wednesday 2/9: Fork repo. Set up GitHub pages. Make test file.
+
+* Friday 2/11: Have data selected.  Come prepared to work on your project.
+
+* Monday 2/14: Come prepared to share at least one thing you learned reading Claus Wilke's book.
+
+* Wednesday 2/16: Presentations
+
+* Friday 2/18: More Presentations (if needed)
+

@@ -180,36 +180,89 @@ pre code {
 <div id="instructions" class="section level2">
 <h2>Instructions</h2>
 <p>Your task is to create a visualization using plotly in R.</p>
-<ol style="list-style-type: decimal">
-<li><p>The data you use for this project may not come from an R package, unless it is one that you created. Otherwise, you may use any data you like. More interesting data makes for more interesting projects.</p></li>
-<li><p>Prepare an Rmd file that produces an <code>index.html</code> file.</p>
+<div id="get-prepared" class="section level4">
+<h4>1. Get Prepared</h4>
+<ol style="list-style-type: lower-alpha">
+<li><p>Choose some data</p>
+<p>The data you use for this project may not come from an R package, unless it is one that you created. Otherwise, you may use any data you like. More interesting data makes for more interesting projects.</p></li>
+<li><p>Read some of <a href="https://clauswilke.com/dataviz/">Claus Wilke’s visualization book</a>:</p>
+<ul>
+<li>From chapters 6 - 16: Read the chapters related to the types of plot(s) you are making.</li>
+<li><a href="https://clauswilke.com/dataviz/visualizing-proportions.html">Chapter 10: Visualizing Proportions</a></li>
+<li>At least one chapter from part II – choose something relevant to your project or interesting to you.</li>
+<li><a href="https://clauswilke.com/dataviz/telling-a-story.html">Chapter 29: Telling a Story and Making a Point</a></li>
+</ul></li>
+</ol>
+</div>
+<div id="fork-the-projects-repo" class="section level4">
+<h4>2. Fork the projects repo</h4>
+<ol style="list-style-type: lower-alpha">
+<li>Fork this repo: <a href="https://github.com/rpruim/ds303-s22-projects" class="uri">https://github.com/rpruim/ds303-s22-projects</a></li>
+<li>Inside <code>docs/plotly-projects/</code> create a folder using the naming convention <code>first-last</code> (all lower case, no spaces, use a dash for a separator).</li>
+<li>Place all your files for this project in this folder.</li>
+</ol>
+</div>
+<div id="prepare-an-rmd-file-that-produces-an-index.html-file." class="section level4">
+<h4>3. Prepare an Rmd file that produces an <code>index.html</code> file.</h4>
 <ol style="list-style-type: lower-alpha">
 <li><p>The name of your file must end <code>index.Rmd</code></p>
 <p>Take a look at John Calvin’s example if you want to name your Rmd something other than <code>index.Rmd</code>.</p></li>
 <li><p>The YAML header must include the following items: <code>title</code>, <code>author</code></p></li>
-</ol></li>
-<li><p>Prepare an HTML file named <strong>index.html</strong> (generated from your Rmd file).</p>
+</ol>
+</div>
+<div id="prepare-an-html-file-named-index.html-generated-from-your-rmd-file." class="section level4">
+<h4>4. Prepare an HTML file named <strong>index.html</strong> (generated from your Rmd file).</h4>
 <p>The file should contain:</p>
 <ol style="list-style-type: lower-alpha">
-<li>Your visualization(s).</li>
+<li>Your visualization(s). Your visualization(s) should include at least one interactive element and follow good practices for the display of data.</li>
 <li>Any background information needed to understand the data or the visualization.</li>
-<li>A description of the data source with links if the data are available online.</li>
+<li>A description of the data source with links if the data are available online. (This would include a link to data in this repository if that where the data live.)</li>
 <li>Any other references/citations as needed.</li>
-</ol></li>
-<li><p>Your visualization(s) should include at least one interactive element.</p></li>
-<li><p>Also submit your source files.</p>
+<li>A section reflecting on your project.
+<ul>
+<li>What ideas/suggestions from Claus Wilke’s helped shape your visualization?</li>
+<li>Is there anything more you wish you could do with this data?</li>
+<li>What were the most interesting or frustrating technical aspects of doing this?</li>
+</ul></li>
+</ol>
+</div>
+<div id="test-things-out" class="section level4">
+<h4>5. Test things out</h4>
+<p>If you <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site">turn on github pages</a> for the docs/ folder of your repo, you should be able to visit your page via a <code>github.io</code> URL.</p>
+</div>
+<div id="also-submit-your-source-files." class="section level4">
+<h4>6. Also submit your source files.</h4>
 <ol style="list-style-type: lower-alpha">
 <li><p>You don’t need to submit the data if it is available online. (But then your project should also load from that online source.)</p></li>
-<li><p>Your project should be buildable by someone who has access to the files you submit. It should not rely on other information – like files on your computer that are not submitted. [Exception: if there is some reason that you cannot share your data, or if your data is larger than 10 MB, talk to me.]</p></li>
-</ol></li>
-<li><p>Submit your work via a pull request.</p>
-<ol style="list-style-type: lower-alpha">
-<li>Fork this repo: <a href="https://github.com/rpruim/ds303-s22-projects" class="uri">https://github.com/rpruim/ds303-s22-projects</a></li>
-<li>Inside <code>docs/plotly-projects/</code> create a folder using the naming convention <code>first-last</code> (all lower case, no spaces, use a dash for a separator).</li>
-<li>Place all your files in this folder.</li>
-<li>When you are ready to submit your work, create a pull request. You can find out more about pull requests <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork">here</a></li>
-</ol></li>
+<li><p>Your project should be buildable by someone who has access to the files you submit. It should not rely on other information – like files on your computer that are not submitted. [Exception: if there is some reason that you cannot share your data, or if your data is larger than 5 MB, talk to me.]</p></li>
 </ol>
+</div>
+<div id="submit-your-work-via-a-pull-request." class="section level4">
+<h4>7. Submit your work via a pull request.</h4>
+<ol style="list-style-type: lower-alpha">
+<li>When you are ready to submit your work, create a pull request. You can find out more about pull requests <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork">here</a>.</li>
+<li>Once your pull request has been accepted, your files should be availble at <a href="https://rpruim.github.io/ds303-s22-projects/plotly-projects/" class="uri">https://rpruim.github.io/ds303-s22-projects/plotly-projects/</a>.</li>
+</ol>
+</div>
+<div id="prepare-to-present-a-walk-through-of-your-visualization" class="section level4">
+<h4>8. Prepare to present a walk-through of your visualization</h4>
+<p>Everyone will get a chance to do a “show-and-tell” about their visualization.</p>
+<ul>
+<li><p>Your data should tell a story, so use your time to tell the story.</p></li>
+<li><p>Make at least one connection between the design of your visualization(s) and the things you read in Claus Wilke’s book.</p></li>
+<li><p>You may also talk about some of the technical aspects of creating your visualization (obtaining data, cool features of plotly, data wrangling issues you had, things you wish you could improve but don’t know how to do yet, etc.)</p></li>
+</ul>
+</div>
+<div id="timeline" class="section level3">
+<h3>Timeline</h3>
+<ul>
+<li><p>Wednesday 2/9: Fork repo. Set up GitHub pages. Make test file.</p></li>
+<li><p>Friday 2/11: Have data selected. Come prepared to work on your project.</p></li>
+<li><p>Monday 2/14: Come prepared to share at least one thing you learned reading Claus Wilke’s book.</p></li>
+<li><p>Wednesday 2/16: Presentations</p></li>
+<li><p>Friday 2/18: More Presentations (if needed)</p></li>
+</ul>
+</div>
 </div>
 
 

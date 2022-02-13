@@ -1,6 +1,6 @@
 ---
-title: "Here's Johnny"
-author: "John Calvin"
+title: "Population, GDP, Year"
+author: "Tom Takeuchi"
 date: "Spring 2022"
 output: html_document
 knit: (

@@ -13,8 +13,134 @@ knit: (
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(plotly)
 ```
 
-## Not much here 
+## Background
 
-Johnny has some work to do.
+For this project, I decided to recreate Hans Rosling's population and GDP graph. The graph can be found [here](https://www.youtube.com/watch?v=jbkSRLYSojo&ab_channel=BBC). 
+
+Since the video did not share the dataset, I downloaded another dataset from [Our World in Data](https://ourworldindata.org/grapher/life-expectancy-vs-gdp-per-capita). 
+
+## Data Overview and Wrangling
+
+Although the year starts from 1870, I decided to use data only after 1950 because most countries miss values for population and GDP for years before 1950.
+
+
+```{r}
+le <- read.csv("data/life_expectancy_data.csv") %>% 
+  janitor::clean_names() %>% 
+  na.omit() %>% 
+  filter(entity != "World",
+         year >= 1950) 
+```
+
+```{r}
+le %>% head()
+```
+
+There are 166 countries in the dataset, but it misses information about which continent a country belongs to.
+
+I used [this website](https://statisticstimes.com/geography/countries-by-continents.php) as a reference to continent, and manually labeled each country.
+
+```{r}
+le %>% distinct(entity) %>% nrow()
+```
+
+```{r}
+le <- le %>% 
+  mutate(continent = case_when
+         (entity %in% c("Algeria", "Angola", "Benin", "Botswana",
+                        "Burkina Faso", "Burundi", "Cameroon", "Cape Verde",
+                        "Central African Republic", "Chad", "Comoros", "Congo",
+                        "Cote d'Ivoire", "Democratic Republic of Congo",
+                        "Djibouti", "Egypt", "Equatorial Guinea", "Eswatini",
+                        "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea",
+                        "Guinea-Bissau", "Kenya", "Lesotho", "Liberia", "Libya",
+                        "Madagascar", "Malawi", "Mali", "Mauritania", "Mauritius", 
+                        "Morocco", "Mozambique", "Namibia", "Niger", "Nigeria", "Rwanda",
+                        "Sao Tome and Principe", "Senegal", "Seychelles",
+                        "Sierra Leone", "South Africa", "Sudan", "Tanzania", "Togo",
+                        "Tunisia", "Uganda", "Zambia", "Zimbabwe"
+                        )
+           ~ "Africa",
+           
+          entity %in% c("Barbados", "Canada", "Costa Rica", "Cuba", "Dominica",
+                        "Dominican Republic", "El Salvador", "Guatemala", "Haiti",
+                        "Honduras", "Hungary", "Jamaica", "Mexico", "Nicaragua",
+                        "Panama", "Puerto Rico", "Saint Lucia", 
+                        "Trinidad and Tobago", "United States"
+                        ) 
+           ~ "North America",
+           
+          entity %in% c("Argentina", "Bolivia", "Brazil", "Chile", "Colombia",
+                        "Ecuador", "Paraguay", "Peru", "Uruguay", "Venezuela"
+                        ) 
+           ~ "South America",
+           
+          entity %in% c("Afghanistan", "Azerbaijan", "Bahrain", "Bangladesh",
+                        "Cambodia", "China", "Cyprus", "Georgia", "Hong Kong",
+                        "India", "Indonesia", "Iran", "Iraq", "Israel", "Japan",
+                        "Jordan", "Kazakhstan", "Kuwait", "Kyrgyzstan", "Laos",
+                        "Lebanon", "Malaysia", "Moldova", "Mongolia", "Myanmar",
+                        "Nepal", "North Korea", "Oman", "Pakistan", "Palestine",
+                        "Philippines", "Qatar", "Saudi Arabia", "Singapore",
+                        "South Korea", "Sri Lanka", "Syria", "Taiwan", "Tajikistan",
+                        "Thailand", "Turkey", "Turkmenistan", "United Arab Emirates",
+                        "Uzbekistan", "Vietnam", "Yemen"
+                        ) 
+           ~ "Asia",
+           
+          entity %in% c("Albania", "Armenia", "Austria", "Belarus", "Belgium",
+                        "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Czechia",
+                        "Denmark", "Estonia", "Finland", "France", "Germany", 
+                        "Greece", "Iceland", "Ireland", "Italy", "Latvia",
+                        "Lithuania", "Luxembourg", "Malta", "Montenegro",
+                        "Netherlands", "North Macedonia", "Norway", "Poland",
+                        "Portugal", "Romania", "Serbia", "Slovakia", "Slovenia",
+                        "Spain", "Sweden", "Switzerland", "Ukraine", 
+                        "United Kingdom"
+                        ) 
+           ~ "Europe",
+           
+          entity %in% c("Australia", "New Zealand"
+                        ) 
+           ~ "Oceania"
+  ))
+```
+
+## Data Visualization
+
+I found `ppglotly` very useful as it converts ggplot2 to plotly.
+
+```{r}
+gg <- le %>% 
+  ggplot(aes(gdp_per_capita, life_expectancy)) +
+  geom_point(aes(size = population_historical_estimates, frame = year, ids = entity, color = continent)) +
+  scale_x_log10() +
+  labs(x = "GDP per Capita", y = "Life Expectancy")
+ggplotly(gg)
+```
+
+I thought this graph was somewhat hard to interpret. We can see the general trend but it is hard to compare different countries. 
+To solve this issue, I made a simple function that draws the same graph with specif countries a user chooses.
+
+I am trying to figure out how to make a user interface to make the most of the function I made.
+
+```{r}
+make_graph <- function(...) {
+  gg1 <- le %>% filter(entity %in% c(...)) %>% 
+    ggplot(aes(gdp_per_capita, life_expectancy)) +
+    geom_point(aes(size = population_historical_estimates, frame = year, color = entity)) +
+    scale_x_log10() +
+    labs(x = "GDP per Capita", y = "Life Expectancy")
+  ggplotly(gg1)
+}
+
+make_graph("United States", "China", "Australia", "Brazil", "Ghana", "Germany")
+```
+
+
+
+## Reflection

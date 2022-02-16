@@ -68,7 +68,7 @@ le <- le %>%
            
           entity %in% c("Barbados", "Canada", "Costa Rica", "Cuba", "Dominica",
                         "Dominican Republic", "El Salvador", "Guatemala", "Haiti",
-                        "Honduras", "Hungary", "Jamaica", "Mexico", "Nicaragua",
+                        "Honduras", "Jamaica", "Mexico", "Nicaragua",
                         "Panama", "Puerto Rico", "Saint Lucia", 
                         "Trinidad and Tobago", "United States"
                         ) 
@@ -100,7 +100,7 @@ le <- le %>%
                         "Netherlands", "North Macedonia", "Norway", "Poland",
                         "Portugal", "Romania", "Serbia", "Slovakia", "Slovenia",
                         "Spain", "Sweden", "Switzerland", "Ukraine", 
-                        "United Kingdom"
+                        "United Kingdom", "Hungary"
                         ) 
            ~ "Europe",
            
@@ -110,37 +110,50 @@ le <- le %>%
   ))
 ```
 
+I should have used `left_join` for the sake of efficiency...
+
 ## Data Visualization
 
-I found `ppglotly` very useful as it converts ggplot2 to plotly.
+I used plotly and crosstalk to make a visualization.
 
 ```{r}
-gg <- le %>% 
+library(crosstalk)
+shared_le <- SharedData$new(le)
+
+bscols(widths = c(2,NA),
+  list(
+    filter_select("continent", "Continent", shared_le, ~continent)
+  ),
+  ggplotly(shared_le %>% 
   ggplot(aes(gdp_per_capita, life_expectancy)) +
   geom_point(aes(size = population_historical_estimates, frame = year, ids = entity, color = continent)) +
   scale_x_log10() +
-  labs(x = "GDP per Capita", y = "Life Expectancy")
-ggplotly(gg)
+  labs(x = "GDP per Capita", y = "Life Expectancy", size = "Continent"))
+)
 ```
 
-I thought this graph was somewhat hard to interpret. We can see the general trend but it is hard to compare different countries. 
-To solve this issue, I made a simple function that draws the same graph with specif countries a user chooses.
-
-I am trying to figure out how to make a user interface to make the most of the function I made.
+## Show countries in North America
 
 ```{r}
-make_graph <- function(...) {
-  gg1 <- le %>% filter(entity %in% c(...)) %>% 
-    ggplot(aes(gdp_per_capita, life_expectancy)) +
-    geom_point(aes(size = population_historical_estimates, frame = year, color = entity)) +
-    scale_x_log10() +
-    labs(x = "GDP per Capita", y = "Life Expectancy")
-  ggplotly(gg1)
-}
+le_na <- le %>% filter(continent == "North America")
+shared_le_na <- SharedData$new(le_na)
 
-make_graph("United States", "China", "Australia", "Brazil", "Ghana", "Germany")
+bscols(widths = c(2,NA),
+  list(
+    filter_select("entity", "Country", shared_le_na, ~entity)
+  ),
+  ggplotly(shared_le_na %>% 
+  ggplot(aes(gdp_per_capita, life_expectancy)) +
+  geom_point(aes(size = population_historical_estimates, frame = year, color = entity)) +
+  scale_x_log10() +
+  labs(x = "GDP per Capita", y = "Life Expectancy", size = "Country"))
+)
 ```
 
-
-
 ## Reflection
+
+* I wanted to make it as simple as possible. Without the selector for continents/countries, all dots were crammed together and it was difficult to see specific continents/countries. After implementing the selector, I think the visualization became much simpler.
+
+* Usually, selected countries do not match with what are shown in the graph, which I want to fix in the future.
+
+* The most frustrating part was definitely the mismatching.

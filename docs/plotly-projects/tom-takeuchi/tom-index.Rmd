@@ -7,11 +7,11 @@ knit: (
   function(inputFile, encoding) { 
     rmarkdown::render( 
       input       = inputFile, 
-      encoding    = encoding, 
+      encoding    = encoding,
       output_file = 'index.html') })
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, echo = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(plotly)
@@ -29,7 +29,7 @@ Since the video did not share the dataset, I downloaded another dataset from [Ou
 Although the year starts from 1870, I decided to use data only after 1950 because most countries miss values for population and GDP for years before 1950.
 
 
-```{r}
+```{r, echo = FALSE}
 le <- read.csv("data/life_expectancy_data.csv") %>% 
   janitor::clean_names() %>% 
   na.omit() %>% 
@@ -39,13 +39,13 @@ le <- read.csv("data/life_expectancy_data.csv") %>%
 
 There are 166 countries in the dataset, but it misses information about which continent a country belongs to.
 
-I used [this website](https://statisticstimes.com/geography/countries-by-continents.php) as a reference to continent, and manually labeled each country.
+I used [this website](https://statisticstimes.com/geography/countries-by-continents.php) as a reference to continent, and manually labeled each country by using `case_when` function, but I should have just used `left_join` for the sake of efficiency...
 
-```{r}
+```{r, include = FALSE}
 le %>% distinct(entity) %>% nrow()
 ```
 
-```{r}
+```{r, echo = FALSE}
 le <- le %>% 
   mutate(continent = case_when
          (entity %in% c("Algeria", "Angola", "Benin", "Botswana",
@@ -107,13 +107,11 @@ le <- le %>%
   ))
 ```
 
-I should have just used `left_join` for the sake of efficiency...
-
 ## Data Visualization
 
-I used plotly and crosstalk to make a visualization.  I think crosstalk does not go well with animation plots.
+I used plotly and crosstalk to make a visualization.  I think crosstalk does not go well with animation plots as the continents/countries shown are different from ones selected.
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, echo = FALSE}
 shared_le <- SharedData$new(le)
 
 bscols(widths = c(2,NA),
@@ -130,7 +128,7 @@ bscols(widths = c(2,NA),
 
 ## Show countries in North America
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, echo = FALSE}
 le_na <- le %>% filter(continent == "North America")
 shared_le_na <- SharedData$new(le_na)
 
@@ -148,17 +146,19 @@ bscols(widths = c(2,NA),
 
 ## Better One
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, echo = FALSE}
 bscols(widths = c(2,4,6),
   list(
     filter_select("entity", "Country", shared_le, ~entity),
     filter_select("year", "Years", shared_le, ~year)
   ),
   add_lines(shared_le %>%
-  plot_ly(x = ~year, y = ~life_expectancy, color = ~entity, id = ~entity), showlegend = FALSE),
+  plot_ly(x = ~year, y = ~life_expectancy, color = ~entity, id = ~entity), showlegend = FALSE) %>% 
+    layout(xaxis = list(title = "Year"), yaxis = list(title = "Life Expectancy")),
   
   add_lines(shared_le %>%
-  plot_ly(x = ~year, y = ~gdp_per_capita, color = ~entity, id = ~entity))
+  plot_ly(x = ~year, y = ~gdp_per_capita, color = ~entity, id = ~entity) %>% 
+    layout(xaxis = list(title = "Year"), yaxis = list(title = "GDP Per Capita")))
 )
 ```
 

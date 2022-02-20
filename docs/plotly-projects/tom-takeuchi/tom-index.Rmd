@@ -150,7 +150,7 @@ bscols(widths = c(2,NA),
 bscols(widths = c(2,4,6),
   list(
     filter_select("entity", "Country", shared_le, ~entity),
-    filter_select("year", "Years", shared_le, ~year)
+    filter_slider("year", "Years", shared_le, ~year, round = TRUE)
   ),
   add_lines(shared_le %>%
   plot_ly(x = ~year, y = ~life_expectancy, color = ~entity, id = ~entity), showlegend = FALSE) %>% 

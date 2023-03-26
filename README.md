@@ -1,6 +1,6 @@
 # Creating Animation Plots using Plotly
 
-[Project Webpage](https://rpruim.github.io/ds303-s22-projects/plotly-projects/tom-takeuchi/)
+Please look at this [Project Webpage](https://rpruim.github.io/ds303-s22-projects/plotly-projects/tom-takeuchi/)
 
 
 ![image](https://user-images.githubusercontent.com/58647594/172677234-9694afa8-7a11-436e-9c59-242d7650d19b.png)
